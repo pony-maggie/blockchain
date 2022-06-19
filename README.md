@@ -17,7 +17,7 @@ $ go build -o goblockchain
 
 ## Usage
 
-start instances(nodes) like this
+start instances(nodes) as follows
 
 You can start as many nodes as you want with the following command
 

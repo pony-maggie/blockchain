@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	. "github.com/pony-maggie/blockchain/pkg/core"
 	"io/ioutil"
 	"net/http"
 )
@@ -17,7 +18,7 @@ func MineHandler(w http.ResponseWriter, req *http.Request) {
 	type Block_ST struct {
 		Index         int           `json:index`
 		Message       string        `json:message`
-		Transactions  []transaction `json:transactions`
+		Transactions  []Transaction `json:transactions`
 		Proof         int           `json:proof`
 		Previous_hash string        `json:previous_hash`
 	}
@@ -33,16 +34,16 @@ func MineHandler(w http.ResponseWriter, req *http.Request) {
 
 	if req.Method == "GET" {
 
-		last_block := goblockchain.last_block()
-		last_proof := last_block.proof
-		previous_hash := last_block.previous_hash
+		last_block := goblockchain.Last_block()
+		last_proof := last_block.Proof
+		previous_hash := last_block.Previous_hash
 
 		fmt.Printf("last_proof:%d\n", last_proof)
 		fmt.Printf("previous_hash:%s\n", previous_hash)
 
-		proof := goblockchain.proof_of_work(last_proof)
+		proof := goblockchain.Proof_of_work(last_proof)
 
-		var trans_reward transaction
+		var trans_reward Transaction
 		trans_reward.Sender = "0"
 		trans_reward.Recipient = "random address"
 		trans_reward.Amount = 1
@@ -52,10 +53,10 @@ func MineHandler(w http.ResponseWriter, req *http.Request) {
 		code = http.StatusOK
 
 		result.Message = "New Block Forged"
-		result.Index = block.index
-		result.Proof = block.proof
-		result.Transactions = block.transactions
-		result.Previous_hash = block.previous_hash
+		result.Index = block.Index
+		result.Proof = block.Proof
+		result.Transactions = block.Transactions
+		result.Previous_hash = block.Previous_hash
 	}
 
 	bytes, _ := json.Marshal(result)

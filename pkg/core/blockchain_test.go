@@ -35,21 +35,21 @@ func TestCreateBlock(t *testing.T) {
 	blockchainIns := NewBlockchain()
 	blockchainIns.New_Block(123, "abc")
 
-	last_block := blockchainIns.last_block()
+	last_block := blockchainIns.Last_block()
 
 	if len(blockchainIns.chain) != 2 {
 		t.Error("error length at genesis block")
 	}
 
-	if last_block.index != 2 {
+	if last_block.Index != 2 {
 		t.Error("genesis block index must be 2")
 	}
 
-	if last_block.proof != 123 {
+	if last_block.Proof != 123 {
 		t.Error("wrong proof")
 	}
 
-	if last_block.previous_hash != "abc" {
+	if last_block.Previous_hash != "abc" {
 		t.Error("wrong previous hash")
 	}
 

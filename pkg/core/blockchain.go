@@ -10,22 +10,22 @@ import (
 	"time"
 )
 
-type transaction struct {
+type Transaction struct {
 	Sender    string
 	Recipient string
 	Amount    int
 }
 
 type block struct {
-	index         int
+	Index         int
 	timestamp     int64
-	transactions  []transaction
-	proof         int
-	previous_hash string
+	Transactions  []Transaction
+	Proof         int
+	Previous_hash string
 }
 
 type Blockchain struct {
-	current_transactions []transaction
+	current_transactions []Transaction
 	chain                []block
 	nodes                []string
 }
@@ -33,7 +33,7 @@ type Blockchain struct {
 func NewBlockchain() *Blockchain {
 	bc := &Blockchain{}
 
-	bc.current_transactions = make([]transaction, 0)
+	bc.current_transactions = make([]Transaction, 0)
 	bc.chain = make([]block, 0)
 	bc.nodes = make([]string, 0)
 
@@ -47,7 +47,7 @@ func hash(data block) string {
 	fmt.Println("hash.....")
 
 	timestamp := []byte(strconv.FormatInt(data.timestamp, 10))
-	previous_hash := []byte(data.previous_hash)
+	previous_hash := []byte(data.Previous_hash)
 
 	data_str := bytes.Join([][]byte{previous_hash, timestamp}, []byte{})
 
@@ -83,16 +83,16 @@ func (bc *Blockchain) New_Block(proof int, previous_hash string) *block {
 
 	blockinstance := &block{}
 
-	blockinstance.index = len(bc.chain) + 1
+	blockinstance.Index = len(bc.chain) + 1
 	blockinstance.timestamp = time.Now().Unix()
-	blockinstance.transactions = bc.current_transactions
-	blockinstance.proof = proof
-	blockinstance.previous_hash = previous_hash
+	blockinstance.Transactions = bc.current_transactions
+	blockinstance.Proof = proof
+	blockinstance.Previous_hash = previous_hash
 
 	trans_len := len(bc.current_transactions)
 
 	fmt.Printf("trans_len:%d \n", trans_len)
-	fmt.Printf("index:%d \n", blockinstance.index)
+	fmt.Printf("index:%d \n", blockinstance.Index)
 
 	bc.current_transactions = bc.current_transactions[trans_len:] //clear
 	bc.chain = append(bc.chain, *blockinstance)
@@ -100,7 +100,7 @@ func (bc *Blockchain) New_Block(proof int, previous_hash string) *block {
 	return blockinstance
 }
 
-func (bc *Blockchain) proof_of_work(last_proof int) int {
+func (bc *Blockchain) Proof_of_work(last_proof int) int {
 
 	fmt.Println("proof_of_work")
 
@@ -117,7 +117,7 @@ func (bc *Blockchain) New_Transaction(sender string, recipient string, amount in
 
 	fmt.Println("new transaction")
 
-	var trans transaction
+	var trans Transaction
 
 	trans.Sender = sender
 	trans.Recipient = recipient
@@ -125,15 +125,15 @@ func (bc *Blockchain) New_Transaction(sender string, recipient string, amount in
 
 	bc.current_transactions = append(bc.current_transactions, trans)
 
-	block := bc.last_block()
+	block := bc.Last_block()
 
-	fmt.Printf("index:%d\n", block.index)
+	fmt.Printf("index:%d\n", block.Index)
 
-	return block.index + 1
+	return block.Index + 1
 
 }
 
-func (bc *Blockchain) last_block() block {
+func (bc *Blockchain) Last_block() block {
 
 	fmt.Println("get last block")
 
@@ -171,7 +171,7 @@ func (bc *Blockchain) Valid_chain(chain []block) bool {
 		fmt.Println("last block:", last_block)
 		fmt.Println("---------------------")
 
-		if current_block.previous_hash != hash(last_block) {
+		if current_block.Previous_hash != hash(last_block) {
 
 			fmt.Println("wo ou, not valid chain")
 
@@ -179,7 +179,7 @@ func (bc *Blockchain) Valid_chain(chain []block) bool {
 
 		}
 
-		if !(valid_proof(last_block.proof, current_block.proof)) {
+		if !(valid_proof(last_block.Proof, current_block.Proof)) {
 			return false
 		}
 

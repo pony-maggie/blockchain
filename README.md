@@ -10,7 +10,9 @@ got the idea from
 
 ## Building
 
+
 ```
+$ cd cmd
 $ go build -o goblockchain
 ```
 
@@ -32,11 +34,11 @@ You can start as many nodes as you want with the following command
 
 get full blockchain
 
-* `GET 127.0.0.1:8001/chain`
+* `curl 127.0.0.1:8001/chain`
 
 mine a new block
 
-* `GET 127.0.0.1:8001/mine`
+* `curl 127.0.0.1:8001/mine`
 
 Adding a new transaction
 
@@ -72,4 +74,4 @@ Register a node in the blockchain network
 
 Resolving Blockchain
 
-* `GET 127.0.0.1:8001/nodes/resolve`
+* `curl 127.0.0.1:8001/nodes/resolve`

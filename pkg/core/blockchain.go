@@ -42,6 +42,10 @@ func NewBlockchain() *Blockchain {
 	return bc
 }
 
+func (bc *Blockchain) GetChain() []block {
+	return bc.chain
+}
+
 func hash(data block) string {
 
 	fmt.Println("hash.....")

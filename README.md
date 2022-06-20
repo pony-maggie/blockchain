@@ -46,15 +46,13 @@ Adding a new transaction
 
 * __Body__:
 
-  ```json
+```json
   {
     "sender": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
     "recipient": "1Ez69SnzzmePmZX3WpEzMKTrcBF2gpNQ55",
     "amount": 1000
   }
-  ```
-
-
+```
 
 
 Register a node in the blockchain network
@@ -63,14 +61,14 @@ Register a node in the blockchain network
 
 * __Body__:
 
-  ```json
+```json
   {
     "nodes": [
         "http://127.0.0.1:8002",
         "http://127.0.0.1:8003"
     ]
 }
-  ```
+```
 
 Resolving Blockchain
 

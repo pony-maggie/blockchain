@@ -111,7 +111,7 @@ func NewTransactionHandler(w http.ResponseWriter, req *http.Request) {
 			index := goblockchain.New_Transaction(transaction.Sender, transaction.Recipient, transaction.Amount)
 
 			code = http.StatusCreated
-			result.Message = fmt.Sprintf("New nodes have been added to Block %d", index)
+			result.Message = fmt.Sprintf("New transaction have been added to Block %d", index)
 
 		}
 
@@ -127,6 +127,11 @@ func NewTransactionHandler(w http.ResponseWriter, req *http.Request) {
 func ChainHandler(w http.ResponseWriter, req *http.Request) {
 
 	fmt.Println("chain transaction handler")
+	chain := goblockchain.GetChain()
+
+	for _, block := range chain {
+		fmt.Printf("%+v --> ", block)
+	}
 
 }
 
